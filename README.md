@@ -211,7 +211,7 @@ Since both use the same experiment name, they will save and load from the same a
 
 We use our new Creator framework to unify RL discrete and continuous action spaces, as elaborated in our [paper](https://arxiv.com).
 
-Then can treat experience replays as datasets for offline RL.
+Then experience replays are serviceable as datasets for offline RL.
 
 # :mortar_board: Pedagogy and Research
 
