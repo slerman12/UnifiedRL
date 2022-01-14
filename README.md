@@ -2,11 +2,11 @@
 
 ### Quick Links
 
-- [Setup](#-wrench--setting-up)
+- [Setup](#setting-up)
 
-- [Examples](#-mag--example-scripts)
+- [Examples](#sample-scripts)
 
-- [Agents and performances](#-bar-chart--agents---performance)
+- [Agents and performances](#agents---performance)
 
 # :runner: Running The Code
 
@@ -66,14 +66,14 @@ Let's get to business.
 ## 1. Clone The Repo
 
 ```
-git clone github.com/agi-init/UnifiedRL
+git clone git@github.com:agi-init/UnifiedRL.git
 cd UnifiedRL
 ```
 
 ## 2. Gemme Some Dependencies
 
 ```
-conda env -f create Conda.yml
+conda env create --name RL --file=Conda.yml
 ```
 
 ## 3. Activate Your Conda Env.
@@ -120,7 +120,7 @@ Voila.
 
 # :file_cabinet: Key files
 
-```Run.py``` handles training and evaluation loops, saving, distributional training, logging, plotting.
+```Run.py``` handles training and evaluation loops, saving, distributed training, logging, plotting.
 
 ```Environment.py``` handles rollouts.
 
@@ -153,7 +153,7 @@ From a saved experience replay, sans additional rollouts:
 python Run.py task=atari/breakout offline=true
 ```
 
-Assumes a replay [is saved](saving).
+Assumes a replay [is saved](#saving).
 
 ### Experiment naming, plotting
 
@@ -188,7 +188,7 @@ You can share an agent across multiple parallel instances with the ```load_every
 For example, a data-collector agent and an update agent,
 
 ```
-python Run.py update_per_steps=inf replay.save=true load_every=true 
+python Run.py seed_steps=inf replay.save=true load_every=true 
 ```
 
 ```
@@ -205,7 +205,7 @@ Since both use the same experiment name, they will save and load from the same a
 
 We use our new Creator framework to unify RL discrete and continuous action spaces, as elaborated in our [paper](https://arxiv.com).
 
-Then treat resulting experience replays as offline RL datasets.
+Then can treat experience replays as datasets for offline RL.
 
 # :mortar_board: Pedagogy and Research
 
@@ -215,9 +215,9 @@ All files are designed to be useful for educational and innovational purposes in
 
 ### If you are interested in the full version of this library, 
 
-Check out our [**UnifiedML**](https://github.com/agi-init/UnifiedML) library. 
+Check out [**UnifiedML**](https://github.com/agi-init/UnifiedML). 
 
-In addition to RL, it supports classification, generative modeling, and more.
+In addition to RL, the agents support classification, generative modeling, and more!
 
 <hr class="solid">
 
