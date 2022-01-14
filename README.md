@@ -82,7 +82,7 @@ conda env create --name RL --file=Conda.yml
 conda activate RL
 ```
 
-Install your preferred Pytorch/CUDA from: https://pytorch.org/get-started/locally/.
+Install your preferred Pytorch with CUDA from: https://pytorch.org/get-started/locally/.
 
 # :joystick: Installing The Suites 
 
