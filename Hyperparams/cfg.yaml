@@ -26,10 +26,10 @@ post_updates: 1000
 evaluate_per_steps: 5000
 evaluate_episodes: 10
 # Saving
-save: false
+save_per_steps: ${train_steps}
 save_path: ./Checkpoints/${experiment}/${Agent}/${environment.suite}/${task_name}_${seed}_Agent.pt
 load: false
-load_every: false
+load_per_steps: inf
 # Logging
 log_video: false
 log_per_episodes: 1

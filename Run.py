@@ -20,7 +20,6 @@ def main(args):
     Utils.set_seed_everywhere(args.seed)
 
     args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    print(args.device)
 
     # Train, test environments
     env = instantiate(args.environment)
@@ -81,7 +80,7 @@ def main(args):
         converged = agent.step >= args.train_steps
         training = agent.step > args.seed_steps
 
-        if args.load_every:
+        if agent.step % args.load_per_steps == 0:
             Utils.load(args.save_path, agent)
 
         # Train agent
@@ -92,7 +91,7 @@ def main(args):
                 if agent.episode % args.log_per_episodes == 0:
                     logger.log(logs, 'Train')
 
-            if args.save:
+            if agent.step % args.save_per_steps == 0:
                 Utils.save(args.save_path, agent, step=agent.step, episode=agent.episode)
 
 
