@@ -82,6 +82,8 @@ conda env create --name RL --file=Conda.yml
 conda activate RL
 ```
 
+## 4. GPU
+
 Optionally, for CUDA support,
 
 ```
