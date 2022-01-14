@@ -6,7 +6,7 @@
 
 - [Examples](#mag-sample-scripts)
 
-- [Agents and performances](#bar-chart-agents--performances)
+- [Agents and performances](#bar_chart-agents--performances)
 
 # :runner: Running The Code
 
