@@ -125,12 +125,13 @@ mv mujoco210/ ~/.mujoco/
 And run:
 
 ```
-pip install git+https://github.com/deepmind/dm_control.git
+sudo apt install libosmesa6-dev libgl1-mesa-glx libglfw3
+pip install --user dm_control
 ```
 
 to install DeepMind Control.
 
-Make sure your Conda env is activated.
+Make sure your Conda env is activated. 
 
 # :file_cabinet: Key files
 
