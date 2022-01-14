@@ -37,7 +37,7 @@ agent_log: false
 # Plotting
 plot_per_steps: 20000
 # Misc
-device: cuda
+device: ??? # To be specified later
 num_workers: 4
 # Experiment
 Agent: Agents.DQNAgent

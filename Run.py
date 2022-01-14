@@ -7,8 +7,8 @@ from hydra.utils import instantiate
 
 import Utils
 
-from torch.backends import cudnn
-cudnn.benchmark = True
+import torch
+torch.backends.cudnn.benchmark = True
 
 
 # Hydra conveniently and cleanly manages sys args
@@ -18,6 +18,8 @@ cudnn.benchmark = True
 def main(args):
     # Set seeds
     Utils.set_seed_everywhere(args.seed)
+
+    args.device = 'gpu' if torch.cuda.is_available() else 'cpu'
 
     # Train, test environments
     env = instantiate(args.environment)
