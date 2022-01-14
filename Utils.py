@@ -37,7 +37,7 @@ def load(path, module):
     path = path.replace('Agents.', '')
     if Path(path).exists():
         to_load = torch.load(path)
-        module.load_state_dict(to_load['state_dict'])
+        module.load_state_dict(to_load['state_dict'], strict=False, map_location=module.device)
         del to_load['state_dict']
         for key in to_load:
             setattr(module, key, to_load[key])
