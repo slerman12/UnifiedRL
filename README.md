@@ -76,16 +76,16 @@ cd UnifiedRL
 conda env create --name RL --file=Conda.yml
 ```
 
-Optionally, for CUDA support,
-
-```
-conda install pytorch cudatoolkit=10.2 -c pytorch
-```
-
 ## 3. Activate Your Conda Env.
 
 ```
 conda activate RL
+```
+
+Optionally, for CUDA support,
+
+```
+conda install pytorch cudatoolkit=10.2 -c pytorch
 ```
 
 # :joystick: Installing The Suites 
