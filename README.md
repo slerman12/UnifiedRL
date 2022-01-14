@@ -115,10 +115,11 @@ Make a ```.mujoco``` folder in your home directory:
 mkdir ~/.mujoco
 ```
 
-Extract downloaded MuJoCo version folder into ```~/.mujoco```. For linux X86_64 architecture, this looks like:
+Extract and move downloaded MuJoCo version folder into ```~/.mujoco```. For linux X86_64 architecture, this looks like:
 
 ```
-tar -xf ~/.mujoco/mujoco210-linux-x86_64.tar.gz 
+tar -xf mujoco210-linux-x86_64.tar.gz
+mv mujoco210/ ~/.mujoco/ 
 ```
 
 And run:
