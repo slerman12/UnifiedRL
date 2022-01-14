@@ -125,11 +125,10 @@ mv mujoco210/ ~/.mujoco/
 And run:
 
 ```
-sudo apt install libosmesa6-dev libgl1-mesa-glx libglfw3
 pip install --user dm_control
 ```
 
-to install GLFW (for rendering) and DeepMind Control.
+to install DeepMind Control.
 
 Make sure your Conda env is activated. 
 
