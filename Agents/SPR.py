@@ -66,7 +66,6 @@ class SPRAgent(torch.nn.Module):
 
         # Birth
 
-    # "Play"
     def act(self, obs):
         with torch.no_grad(), Utils.act_mode(self.encoder, self.actor):
             obs = torch.as_tensor(obs, device=self.device)
@@ -103,7 +102,7 @@ class SPRAgent(torch.nn.Module):
             batch, self.device)
         traj_o, traj_a, traj_r = traj
 
-        # "Envision" / "Imagine"
+        # "Envision" / "Perceive"
 
         # Augment
         obs = self.aug(obs)

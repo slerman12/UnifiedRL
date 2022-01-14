@@ -48,7 +48,6 @@ class DrQV2Agent(torch.nn.Module):
 
         # Birth
 
-    # "Play"
     def act(self, obs):
         with torch.no_grad(), Utils.act_mode(self.encoder, self.actor):
             obs = torch.as_tensor(obs, device=self.device)

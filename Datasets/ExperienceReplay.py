@@ -44,8 +44,6 @@ class ExperienceReplay:
         self.episode = {spec['name']: [] for spec in self.specs}
         self.episode_len = 0
 
-        self.merging_enabled = True
-
         # Parallelized experience loading
 
         self.experiences = Experiences(path=self.path,
