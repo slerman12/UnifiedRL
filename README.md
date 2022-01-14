@@ -82,13 +82,7 @@ conda env create --name RL --file=Conda.yml
 conda activate RL
 ```
 
-## 4. GPU
-
-Optionally, for CUDA support,
-
-```
-conda install pytorch cudatoolkit=10.2 -c pytorch
-```
+Install your preferred Pytorch/CUDA from: https://pytorch.org/get-started/locally/.
 
 # :joystick: Installing The Suites 
 
