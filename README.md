@@ -53,7 +53,7 @@ If you use any part of this code, **be sure to cite the above!**
 An acknowledgment to [Denis Yarats](https://github.com/denisyarats), whose excellent [DrQV2 repo](https://github.com/facebookresearch/drqv2) inspired much of this library and its design.
 
 # :open_umbrella: Unified Learning?
-Yes.
+Indeed.
 
 All agents support discrete and continuous control, and offline RL.
 
