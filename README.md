@@ -181,27 +181,23 @@ python Run.py replay.save=true replay.load=true
 
 Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer``` respectively per a unique experiment.
 
-[comment]: <> (### Distributional)
+### Distributed
 
-[comment]: <> (It is possible to train multiple instances of the same agent with the ```load_every=``` flag. )
+You can share an agent across multiple parallel instances with the ```load_every=``` flag. 
 
-[comment]: <> (For example, you can run the following in concurrent processes:)
+For example, a data-collector agent and an update agent,
 
-[comment]: <> (```)
+```
+python Run.py update_per_steps=inf replay.save=true load_every=true 
+```
 
-[comment]: <> (python Run.py replay.save=true load_every=true )
+```
+python Run.py offline=true replay.load=true replay.save=true load_every=true
+```
 
-[comment]: <> (```)
+in concurrent processes.
 
-[comment]: <> (and)
-
-[comment]: <> (```)
-
-[comment]: <> (python Run.py offline=true replay.load=true replay.save=true load_every=true)
-
-[comment]: <> (```)
-
-[comment]: <> (Since both share the same experiment name, they will save and load from the same agent and replay, thereby emulating distributional training.)
+Since both use the same experiment name, they will save and load from the same agent and replay, thereby emulating distributed training.
 
 # :bar_chart: Agents & Performances
 

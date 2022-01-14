@@ -174,7 +174,7 @@ class AtariPreprocessing(dm_env.Environment):
         self.gym_env.ale.getScreenGrayscale(output)
         return output
 
-    def _pool_and_resize(self):  # todo don't pool if using frame stack
+    def _pool_and_resize(self):
         """Transforms two frames into a Nature DQN observation.
         For efficiency, the transformation is done in-place in self.screen_buffer.
         Returns:
@@ -193,7 +193,7 @@ class AtariPreprocessing(dm_env.Environment):
 
 
 def make(task, frame_stack=4, action_repeat=4, max_episode_frames=None, truncate_episode_frames=None,
-         train=True, seed=1, batch_size=1, num_workers=1):  # TODO VectorEnvs num_workers > 1
+         train=True, seed=1, batch_size=1, num_workers=1):
     task = f'ALE/{task}-v5'
 
     # Recommended vs. original settings
@@ -220,7 +220,7 @@ def make(task, frame_stack=4, action_repeat=4, max_episode_frames=None, truncate
     # full_action_set = env.getLegalActionSet()
     # env = gym.make(task, full_action_space=False)  # For minimal action spaces
     env.seed(seed)
-    env = AtariPreprocessing(env, frame_skip=action_repeat if train else action_repeat,  # Recommended: 4  TODO eval 1
+    env = AtariPreprocessing(env, frame_skip=action_repeat if train else action_repeat,  # Recommended: 4
                              terminal_on_life_loss=not recommended, screen_size=84)
 
     # Stack several frames
