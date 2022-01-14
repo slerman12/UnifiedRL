@@ -130,6 +130,8 @@ pip install git+https://github.com/deepmind/dm_control.git
 
 to install DeepMind Control.
 
+Make sure your Conda env is activated.
+
 # :file_cabinet: Key files
 
 ```Run.py``` handles training and evaluation loops, saving, distributed training, logging, plotting.
