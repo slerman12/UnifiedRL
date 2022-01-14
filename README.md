@@ -122,7 +122,12 @@ And run:
 pip install --user dm_control
 ```
 
-to install DeepMind Control. For any issues, consult the [DMC repo](https://github.com/deepmind/dm_control).
+to install DeepMind Control. For any issues, consult the [DMC repo](https://github.com/deepmind/dm_control). You may additionally need:
+
+```
+sudo apt update
+sudo apt install libosmesa6-dev libgl1-mesa-glx libglfw3
+```
 
 # :file_cabinet: Key files
 
