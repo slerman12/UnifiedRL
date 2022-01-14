@@ -115,7 +115,7 @@ Make a ```.mujoco``` folder in your home directory:
 mkdir ~/.mujoco
 ```
 
-Unrar, unzip, and move (```unrar```, ```unzip```, and ```mv```) downloaded MuJoCo version folder into ```~/.mujoco```. 
+Extract and move downloaded MuJoCo version folder into ```~/.mujoco```. 
 
 And run:
 ```
