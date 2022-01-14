@@ -109,7 +109,7 @@ Make a ```.mujoco``` folder in your home directory:
 mkdir ~/.mujoco
 ```
 
-Extract and move downloaded MuJoCo folder into ```~/.mujoco```. For a linux X86_64 architecture, this looks like:
+Extract and move downloaded MuJoCo folder into ```~/.mujoco```. For a linux x86_64 architecture, this looks like:
 
 ```
 tar -xf mujoco210-linux-x86_64.tar.gz
