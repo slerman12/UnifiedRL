@@ -194,11 +194,11 @@ You can share an agent across multiple parallel instances with the ```load_per_s
 For example, a data-collector agent and an update agent,
 
 ```
-python Run.py seed_steps=inf replay.save=true load_per_steps=1 
+python Run.py update_per_steps=0 replay.save=true load_per_steps=1 
 ```
 
 ```
-python Run.py offline=true replay.load=true replay.save=true save_per_steps=2
+python Run.py offline=true replay.load=true replay.save=true save_per_steps=1
 ```
 
 in concurrent processes.

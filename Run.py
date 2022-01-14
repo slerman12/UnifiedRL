@@ -46,7 +46,7 @@ def main(args):
     converged = training = False
     while True:
         # Evaluate
-        if agent.step % args.evaluate_per_steps == 0:
+        if args.evaluate_per_steps and agent.step % args.evaluate_per_steps == 0:
 
             for ep in range(args.evaluate_episodes):
                 _, logs, vlogs = generalize.rollout(agent.eval(),  # agent.eval() just sets agent.training to False
@@ -59,7 +59,7 @@ def main(args):
             if args.log_video:
                 vlogger.dump_vlogs(vlogs, f'{agent.step}.mp4')
 
-        if agent.step % args.plot_per_steps == 0:
+        if args.plot_per_steps and agent.step % args.plot_per_steps == 0:
             instantiate(args.plotting)
 
         if converged:
@@ -80,18 +80,18 @@ def main(args):
         converged = agent.step >= args.train_steps
         training = agent.step > args.seed_steps
 
-        if agent.step % args.load_per_steps == 0:
+        if args.load_per_steps and agent.step % args.load_per_steps == 0:
             Utils.load(args.save_path, agent)
 
         # Train agent
-        if training and agent.step % args.update_per_steps == 0 or converged:
+        if training and args.update_per_steps and agent.step % args.update_per_steps == 0 or converged:
 
             for _ in range(args.post_updates if converged else 1):  # Additional updates after all rollouts
                 logs = agent.train().learn(replay)  # Trains the agent
                 if agent.episode % args.log_per_episodes == 0:
                     logger.log(logs, 'Train')
 
-            if agent.step % args.save_per_steps == 0:
+            if args.save_per_steps and agent.step % args.save_per_steps == 0:
                 Utils.save(args.save_path, agent, step=agent.step, episode=agent.episode)
 
 

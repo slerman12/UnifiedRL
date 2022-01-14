@@ -29,7 +29,7 @@ evaluate_episodes: 10
 save_per_steps: ${train_steps}
 save_path: ./Checkpoints/${experiment}/${Agent}/${environment.suite}/${task_name}_${seed}_Agent.pt
 load: false
-load_per_steps: inf
+load_per_steps: 0
 # Logging
 log_video: false
 log_per_episodes: 1
