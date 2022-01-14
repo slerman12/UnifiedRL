@@ -124,8 +124,6 @@ pip install --user dm_control
 
 to install DeepMind Control. For any issues, consult the [DMC repo](https://github.com/deepmind/dm_control).
 
-Make sure your Conda env is activated. 
-
 # :file_cabinet: Key files
 
 ```Run.py``` handles training and evaluation loops, saving, distributed training, logging, plotting.
