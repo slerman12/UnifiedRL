@@ -130,7 +130,7 @@ pip install git+https://github.com/deepmind/dm_control.git
 
 to install DeepMind Control.
 
-Make sure your Conda env [is activated](#3-activate-your-conda-env).
+Make sure your Conda env is activated.
 
 # :file_cabinet: Key files
 
