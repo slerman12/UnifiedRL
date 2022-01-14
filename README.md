@@ -30,7 +30,7 @@ Welcome ye, weary Traveller.
 
 >Stop here and rest at our local tavern,
 >
-> Where all your reinforcements be served, à la carte!
+> Where the most hospitable reinforcements be served, à la carte!
 
 Drink up! :beers:
 
