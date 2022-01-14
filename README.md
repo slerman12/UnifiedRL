@@ -1,4 +1,4 @@
-![alt text]()
+![alt text](https://imgur.com/a/1332tzt)
 
 ### Quick Links
 
@@ -24,7 +24,7 @@ Defaults:
 
 Plots, logs, and videos are automatically stored in: ```./Benchmarking```.
 
-![alt text]()
+![alt text](https://imgur.com/a/40DpsrF)
 
 Welcome ye, weary Traveller.
 
