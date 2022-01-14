@@ -227,4 +227,4 @@ In addition to RL, supports classification and generative modeling, with little 
 
 <hr class="solid">
 
-[MIT License Included.](https://github.com/agi-init/UnifiedRL/MIT_LICENSE)
+[MIT License Included.](MIT_LICENSE)
