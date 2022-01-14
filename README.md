@@ -2,11 +2,11 @@
 
 ### Quick Links
 
-- [Setup](#setting-up)
+- [Setup](#wrench-setting-up)
 
-- [Examples](#sample-scripts)
+- [Examples](#mag-sample-scripts)
 
-- [Agents and performances](#agents---performance)
+- [Agents and performances](#bar_chart-agents---performance)
 
 # :runner: Running The Code
 
@@ -57,7 +57,7 @@ Yes.
 
 All agents support discrete and continuous control, and offline RL.
 
-See example scripts [below](#sample-scripts).
+See example scripts [below](#mag-sample-scripts).
 
 # :wrench: Setting Up 
 
