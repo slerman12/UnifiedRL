@@ -221,9 +221,9 @@ All files are designed to be useful for educational and innovational purposes in
 
 ### If you are interested in the full version of this library, 
 
-Check out [**UnifiedML**](https://github.com/agi-init/UnifiedML). 
+Check out our [**UnifiedML**](https://github.com/agi-init/UnifiedML). 
 
-In addition to RL, agents support classification, generative modeling, and more!
+In addition to RL, supports classification and generative modeling.
 
 <hr class="solid">
 
