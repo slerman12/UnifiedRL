@@ -24,18 +24,23 @@ def set_seed_everywhere(seed):
     random.seed(seed)
 
 
-# Saves Torch objects to root
-def save(path, module):
+# Saves modules to root
+def save(path, module, **to_save):
     path = path.replace('Agents.', '')
     Path('/'.join(path.split('/')[:-1])).mkdir(exist_ok=True, parents=True)
-    torch.save(module.state_dict(), path)
+    to_save.update({'state_dict': module.state_dict()})
+    torch.save(to_save, path)
 
 
-# Loads Torch objects from root
+# Loads modules from root
 def load(path, module):
     path = path.replace('Agents.', '')
     if Path(path).exists():
-        module.load_state_dict(torch.load(path))
+        to_load = torch.load(path)
+        module.load_state_dict(to_load['state_dict'])
+        del to_load['state_dict']
+        for key in to_load:
+            setattr(module, key, to_load[key])
 
 
 # Initializes model weights according to common distributions

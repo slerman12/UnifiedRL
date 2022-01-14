@@ -87,12 +87,12 @@ def main(args):
         if training and agent.step % args.update_per_steps == 0 or converged:
 
             for _ in range(args.post_updates if converged else 1):  # Additional updates after all rollouts
-                logs = agent.learn(replay)  # Trains the agent
+                logs = agent.train().learn(replay)  # Trains the agent
                 if agent.episode % args.log_per_episodes == 0:
                     logger.log(logs, 'Train')
 
             if args.save:
-                Utils.save(args.save_path, agent)
+                Utils.save(args.save_path, agent, step=agent.step, episode=agent.episode)
 
 
 if __name__ == '__main__':
