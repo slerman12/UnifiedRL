@@ -24,7 +24,7 @@ def set_seed_everywhere(seed):
     random.seed(seed)
 
 
-# Saves modules to root
+# Saves modules
 def save(path, module, **to_save):
     path = path.replace('Agents.', '')
     Path('/'.join(path.split('/')[:-1])).mkdir(exist_ok=True, parents=True)
@@ -32,7 +32,7 @@ def save(path, module, **to_save):
     torch.save(to_save, path)
 
 
-# Loads modules from root
+# Loads modules
 def load(path, module):
     path = path.replace('Agents.', '')
     if Path(path).exists():
