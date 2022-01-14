@@ -94,9 +94,9 @@ AutoROM --accept-license
 ```
 Then:
 ```
-mkdir Atari_ROMS
-AutoROM --install-dir ./Atari_ROMS
-ale-import-roms ./ATARI_ROMS
+mkdir ./Datasets/Suites/Atari_ROMS
+AutoROM --install-dir ./Datasets/Suites/Atari_ROMS
+ale-import-roms ./Datasets/Suites/ATARI_ROMS
 ```
 ## 2. DeepMind Control
 Download MuJoCo from here: https://mujoco.org/download.
@@ -217,7 +217,7 @@ All files are designed to be useful for educational and innovational purposes in
 
 Check out [**UnifiedML**](https://github.com/agi-init/UnifiedML). 
 
-In addition to RL, the agents support classification, generative modeling, and more!
+In addition to RL, agents support classification, generative modeling, and more!
 
 <hr class="solid">
 
