@@ -19,7 +19,7 @@ def main(args):
     # Set seeds
     Utils.set_seed_everywhere(args.seed)
 
-    args.device = 'gpu' if torch.cuda.is_available() else 'cpu'
+    args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     # Train, test environments
     env = instantiate(args.environment)
