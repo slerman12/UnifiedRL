@@ -223,7 +223,7 @@ All files are designed to be useful for educational and innovational purposes in
 
 Check out our [**UnifiedML**](https://github.com/agi-init/UnifiedML). 
 
-In addition to RL, supports classification and generative modeling, with little extra overhead.
+In addition to RL, supports classification and generative modeling, with little overhead.
 
 <hr class="solid">
 
