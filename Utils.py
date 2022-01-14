@@ -27,6 +27,7 @@ def set_seed_everywhere(seed):
 # Saves Torch objects to root
 def save(path, module):
     path = path.replace('Agents.', '')
+    Path('/'.join(path.split('/')[:-1])).mkdir(exist_ok=True, parents=True)
     torch.save(module.state_dict(), path)
 
 
