@@ -118,13 +118,12 @@ mkdir ~/.mujoco
 Extract and move downloaded MuJoCo version folder into ```~/.mujoco```. 
 
 And run:
+
 ```
 pip install git+https://github.com/deepmind/dm_control.git
 ```
 
 to install DeepMind Control.
-
-Voila.
 
 # :file_cabinet: Key files
 
