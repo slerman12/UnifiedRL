@@ -76,7 +76,7 @@ cd UnifiedRL
 conda env create --name RL --file=Conda.yml
 ```
 
-Optionally, for CUDA support, uncomment [this line]() first.
+Optionally, for CUDA support, uncomment [this line](https://github.com/slerman12/UnifiedRL/blob/eda6aadb648dbe8e0513e45f7242aff705958554/Conda.yml#L16) first.
 
 ## 3. Activate Your Conda Env.
 
