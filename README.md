@@ -6,7 +6,7 @@
 
 - [Examples](#mag-sample-scripts)
 
-- [Agents and performances](#bar_chart-agents---performance)
+- [Agents and performances](#agents-performances)
 
 # :runner: Running The Code
 
@@ -199,7 +199,7 @@ in concurrent processes.
 
 Since both use the same experiment name, they will save and load from the same agent and replay, thereby emulating distributed training.
 
-# :bar_chart: Agents & Performances
+# Agents & Performances
 
 # :interrobang: How is this possible
 
