@@ -96,7 +96,7 @@ Then:
 ```
 mkdir ./Datasets/Suites/Atari_ROMS
 AutoROM --install-dir ./Datasets/Suites/Atari_ROMS
-ale-import-roms ./Datasets/Suites/ATARI_ROMS
+ale-import-roms ./Datasets/Suites/ATARI_ROMS/
 ```
 ## 2. DeepMind Control
 Download MuJoCo from here: https://mujoco.org/download.
