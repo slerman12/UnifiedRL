@@ -132,6 +132,8 @@ to install DeepMind Control.
 
 Make sure your Conda env is activated.
 
+[comment]: <> (Make sure your Conda env [is activated]&#40;https://www.reddit.com/r/kundalini/wiki/index#wiki_.2Fr.2Fkundalini_wiki&#41;.)
+
 # :file_cabinet: Key files
 
 ```Run.py``` handles training and evaluation loops, saving, distributed training, logging, plotting.
