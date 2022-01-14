@@ -27,7 +27,7 @@ evaluate_per_steps: 5000
 evaluate_episodes: 10
 # Saving
 save: false
-save_path: ./Checkpoints/${experiment}/${Agent}/${environment.suite}/${task_name}_${seed}
+save_path: ./Checkpoints/${experiment}/${Agent}/${environment.suite}/${task_name}_${seed}_Agent.pt
 load: false
 load_every: false
 # Logging
