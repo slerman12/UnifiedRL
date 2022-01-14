@@ -173,10 +173,10 @@ A unique experiment for benchmarking and saving purposes, is distinguished by: `
 
 ### Saving
 
-Agents can be saved or loaded with the ```save=true``` or ```load=true``` flags.
+Agents can be saved periodically or loaded with the ```save_per_steps=``` or ```load=true``` flags. By default, ```save_per_steps=${train_steps}``` the number of training steps.
 
 ```
-python Run.py save=true load=true
+python Run.py save_per_steps=100000 load=true
 ```
 
 An experience replay can be saved or loaded with the ```replay.save=true``` or ```replay.load=true``` flags.
@@ -189,16 +189,16 @@ Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer```
 
 ### Distributed
 
-You can share an agent across multiple parallel instances with the ```load_every=``` flag. 
+You can share an agent across multiple parallel instances with the ```load_per_steps=``` flag. 
 
 For example, a data-collector agent and an update agent,
 
 ```
-python Run.py seed_steps=inf replay.save=true load_every=true 
+python Run.py seed_steps=inf replay.save=true load_per_steps=1 
 ```
 
 ```
-python Run.py offline=true replay.load=true replay.save=true load_every=true
+python Run.py offline=true replay.load=true replay.save=true save_per_steps=2
 ```
 
 in concurrent processes.
