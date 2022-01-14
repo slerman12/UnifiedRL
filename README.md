@@ -129,8 +129,6 @@ pip install git+https://github.com/deepmind/dm_control.git
 
 to install DeepMind Control.
 
-Voila.
-
 # :file_cabinet: Key files
 
 ```Run.py``` handles training and evaluation loops, saving, distributed training, logging, plotting.
