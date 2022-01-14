@@ -72,8 +72,7 @@ def main(args):
 
         if env.episode_done:
             if agent.episode % args.log_per_episodes == 0:
-                name = 'Train' if training else 'Seed'
-                logger.log(logs, name, dump=True)
+                logger.log(logs, 'Train' if training else 'Seed', dump=True)
 
             if env.last_episode_len > args.nstep:
                 replay.add(store=True)  # Only store full episodes
