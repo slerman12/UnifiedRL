@@ -129,7 +129,7 @@ sudo apt install libosmesa6-dev libgl1-mesa-glx libglfw3
 pip install --user dm_control
 ```
 
-to install DeepMind Control.
+to install GLFW and DeepMind Control.
 
 Make sure your Conda env is activated. 
 
