@@ -175,7 +175,7 @@ A unique experiment for benchmarking and saving purposes, is distinguished by: `
 
 ### Saving
 
-Agents can be saved periodically or loaded with the ```save_per_steps=``` or ```load=true``` flags. By default, ```save_per_steps=${train_steps}``` the number of training steps.
+Agents can be saved periodically or loaded with the ```save_per_steps=``` or ```load=true``` flags, and are automatically saved at end of training.
 
 ```
 python Run.py save_per_steps=100000 load=true
@@ -187,7 +187,7 @@ An experience replay can be saved or loaded with the ```replay.save=true``` or `
 python Run.py replay.save=true replay.load=true
 ```
 
-Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer``` respectively per a unique experiment and date.
+Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer``` respectively per a unique experiment and date-time.
 
 Careful, without ```replay.save=true``` a loaded replay will be deleted upon terminate.
 
