@@ -26,6 +26,7 @@ post_updates: 1000
 evaluate_per_steps: 5000
 evaluate_episodes: 10
 # Saving
+save: true
 save_per_steps: 0
 save_path: ./Checkpoints/${experiment}/${Agent}/${environment.suite}/${task_name}_${seed}_Agent.pt
 load: false
