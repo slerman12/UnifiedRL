@@ -191,7 +191,7 @@ Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer```
 
 In the case of multiple saved replays per a unique experiment, the most recent is loaded.
 
-Without ```replay.save=true``` a loaded replay will be deleted upon terminate.
+Careful, without ```replay.save=true``` a loaded replay will be deleted upon terminate.
 
 ### Distributed
 
