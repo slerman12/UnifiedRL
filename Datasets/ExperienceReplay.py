@@ -27,12 +27,12 @@ class ExperienceReplay:
         if load or offline:
             assert len(exists) > 0, 'No existing replay buffer found.'
             self.path = Path(sorted(exists)[-1])
-            self.num_episodes = len(list(self.path.glob('*.npz')))
             save = offline or save
         else:
             self.path = Path(path + '_' + str(datetime.datetime.now()))
             self.path.mkdir(exist_ok=True, parents=True)
-            self.num_episodes = 0
+
+        self.ready = len(self) >= num_workers
 
         if not save:
             # Delete replay on terminate
@@ -135,7 +135,8 @@ class ExperienceReplay:
             self.episode['step'] = np.repeat(self.episode['step'], self.episode_len, axis=0)
 
         timestamp = datetime.datetime.now().strftime('%Y%m%dT%H%M%S')
-        episode_name = f'{timestamp}_{self.num_episodes}_{self.episode_len}.npz'
+        num_episodes = len(self)
+        episode_name = f'{timestamp}_{num_episodes}_{self.episode_len}.npz'
 
         # Save episode
         save_path = self.path / episode_name
@@ -145,12 +146,12 @@ class ExperienceReplay:
             with save_path.open('wb') as f:
                 f.write(buffer.read())
 
-        self.num_episodes += 1
         self.episode = {spec['name']: [] for spec in self.specs}
         self.episode_len = 0
+        self.ready = num_episodes >= self.experiences.num_workers
 
     def __len__(self):
-        return self.num_episodes
+        return len(list(self.path.glob('*.npz')))
 
 
 # How to initialize each worker
