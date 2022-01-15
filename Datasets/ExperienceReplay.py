@@ -25,15 +25,11 @@ class ExperienceReplay:
         if load or offline:
             assert len(exists) > 0
             self.path = Path(sorted(exists)[-1])
-
             self.num_episodes = len(glob.glob(self.path))
-            self.num_experiences_stored = sum([len(glob.glob(p)) for p in glob.glob(self.path)], [])
         else:
             self.path = Path(path + '_' + str(datetime.datetime.now()))
             self.path.mkdir(exist_ok=True, parents=True)
-
             self.num_episodes = 0
-            self.num_experiences_stored = 0
 
         # Data specs
 
@@ -143,7 +139,6 @@ class ExperienceReplay:
                 f.write(buffer.read())
 
         self.num_episodes += 1
-        self.num_experiences_stored += self.episode_len
         self.episode = {spec['name']: [] for spec in self.specs}
         self.episode_len = 0
 
