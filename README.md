@@ -187,6 +187,8 @@ python Run.py replay.save=true replay.load=true
 
 Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer``` respectively per a unique experiment.
 
+Careful, without ```replay.save=true``` a loaded replay will be deleted upon terminate.
+
 ### Distributed
 
 You can share an agent across multiple parallel instances with the ```load_per_steps=``` flag. 

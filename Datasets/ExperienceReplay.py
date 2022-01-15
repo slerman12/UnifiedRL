@@ -28,6 +28,7 @@ class ExperienceReplay:
             assert len(exists) > 0, 'No existing replay buffer found.'
             self.path = Path(sorted(exists)[-1])
             self.num_episodes = len(list(self.path.glob('*.npz')))
+            save = offline
         else:
             self.path = Path(path + '_' + str(datetime.datetime.now()))
             self.path.mkdir(exist_ok=True, parents=True)
