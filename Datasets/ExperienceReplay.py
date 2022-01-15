@@ -24,14 +24,17 @@ class ExperienceReplay:
         if load or offline:
             assert len(exists) > 0
             self.path = Path(sorted(exists)[-1])
+
+            self.num_episodes = len(glob.glob(self.path))
+            self.num_experiences_stored = sum([len(glob.glob(p)) for p in glob.glob(self.path)], [])
         else:
             self.path = Path(path + '_' + str(datetime.datetime.now()))
             self.path.mkdir(exist_ok=True, parents=True)
 
-        # Episode storage
+            self.num_episodes = 0
+            self.num_experiences_stored = 0
 
-        self.num_episodes = 0
-        self.num_experiences_stored = 0
+        # Specs
 
         if obs_spec is None:
             obs_spec = {'name': 'obs', 'shape': (1,), 'dtype': 'float32'},
@@ -40,6 +43,8 @@ class ExperienceReplay:
                       {'name': 'reward', 'shape': (1,), 'dtype': 'float32'},
                       {'name': 'discount', 'shape': (1,), 'dtype': 'float32'},
                       {'name': 'step', 'shape': (1,), 'dtype': 'float32'},)
+
+        # Episode storage
 
         self.episode = {spec['name']: [] for spec in self.specs}
         self.episode_len = 0
