@@ -24,15 +24,15 @@ def set_seed_everywhere(seed):
     random.seed(seed)
 
 
-# Saves modules
-def save(path, module, **to_save):
+# Saves module + attributes
+def save(path, module, **attributes):
     path = path.replace('Agents.', '')
     Path('/'.join(path.split('/')[:-1])).mkdir(exist_ok=True, parents=True)
-    to_save.update({'state_dict': module.state_dict()})
-    torch.save(to_save, path)
+    attributes.update({'state_dict': module.state_dict()})
+    torch.save(attributes, path)
 
 
-# Loads modules
+# Loads module
 def load(path, module):
     path = path.replace('Agents.', '')
     if Path(path).exists():
