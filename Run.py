@@ -33,6 +33,7 @@ def main(args):
 
     if args.load:
         Utils.load(args.save_path, agent)
+        args.train_steps += agent.step
 
     # Experience replay
     replay = instantiate(args.replay)
@@ -71,7 +72,7 @@ def main(args):
         replay.add(experiences)
 
         if env.episode_done:
-            if agent.episode % args.log_per_episodes == 0:
+            if args.log_per_episodes and agent.episode % args.log_per_episodes == 0:
                 logger.log(logs, 'Train' if training else 'Seed', dump=True)
 
             if env.last_episode_len > args.nstep:
