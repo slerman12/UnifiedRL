@@ -187,9 +187,11 @@ An experience replay can be saved or loaded with the ```replay.save=true``` or `
 python Run.py replay.save=true replay.load=true
 ```
 
-Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer``` respectively per a unique experiment.
+Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer``` respectively per a unique experiment and date.
 
-Careful, without ```replay.save=true``` a loaded replay will be deleted upon terminate.
+In the case of multiple saved replays per a unique experiment, the most recent is loaded.
+
+Without ```replay.save=true``` a loaded replay will be deleted upon terminate.
 
 ### Distributed
 
