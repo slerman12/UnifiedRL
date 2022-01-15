@@ -191,7 +191,7 @@ Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer```
 
 Careful, without ```replay.save=true``` a loaded replay will be deleted upon terminate.
 
-In the case of multiple saved replays per a unique experiment, the most recent is loaded.
+In case of multiple saved replays per a unique experiment, the most recent is loaded.
 
 ### Distributed
 
@@ -204,7 +204,7 @@ python Run.py update_per_steps=0 replay.save=true load_per_steps=1
 ```
 
 ```
-python Run.py offline=true save_per_steps=1
+python Run.py offline=true save_per_steps=2
 ```
 
 in concurrent processes.
