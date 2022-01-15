@@ -18,7 +18,8 @@ from torch.utils.data import IterableDataset
 class ExperienceReplay:
     def __init__(self, batch_size, num_workers, capacity, action_spec, offline, save, load, path='.',
                  obs_spec=None, nstep=0, discount=1):
-        # Replay buffer path
+        # Path and loading
+
         exists = glob.glob(path + '*/')
 
         if load or offline:
@@ -34,7 +35,7 @@ class ExperienceReplay:
             self.num_episodes = 0
             self.num_experiences_stored = 0
 
-        # Specs
+        # Data specs
 
         if obs_spec is None:
             obs_spec = {'name': 'obs', 'shape': (1,), 'dtype': 'float32'},
@@ -66,7 +67,7 @@ class ExperienceReplay:
                                                    num_workers=num_workers,
                                                    pin_memory=True,
                                                    worker_init_fn=worker_init_fn)
-
+        # Replay
         self._replay = None
 
     # Returns a batch of experiences
