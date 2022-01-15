@@ -175,7 +175,7 @@ A unique experiment for benchmarking and saving purposes, is distinguished by: `
 
 ### Saving
 
-Agents can be saved periodically or loaded with the ```save_per_steps=``` or ```load=true``` flags, and are automatically saved at end of training.
+Agents can be saved periodically or loaded with the ```save_per_steps=``` or ```load=true``` flags, and are automatically saved at end of training with ```save=true``` by default.
 
 ```
 python Run.py save_per_steps=100000 load=true
