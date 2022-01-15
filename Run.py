@@ -17,7 +17,7 @@ torch.backends.cudnn.benchmark = True
 @hydra.main(config_path='Hyperparams', config_name='cfg')
 def main(args):
     # Set seeds
-    Utils.set_seed_everywhere(args.seed)
+    Utils.set_seeds(args.seed)
 
     args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 

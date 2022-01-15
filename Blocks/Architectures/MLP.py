@@ -73,7 +73,7 @@ class MLPBlock(nn.Module):
 
     def update_target_params(self):
         assert hasattr(self, 'target_tau')
-        Utils.soft_update_params(self, self.target, self.target_tau)
+        Utils.param_copy(self, self.target, self.target_tau)
 
     def forward(self, *x):
         h = torch.cat(x, -1)

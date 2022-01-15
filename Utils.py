@@ -17,7 +17,7 @@ from torch.distributions import Normal
 
 
 # Sets all Torch and Numpy random seeds
-def set_seed_everywhere(seed):
+def set_seeds(seed):
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
@@ -43,7 +43,7 @@ def load(path, module):
         for key in to_load:
             setattr(module, key, to_load[key])
     else:
-        warnings.warn(f'Load path {path} does not exist')
+        warnings.warn(f'Load path {path} does not exist.')
 
 
 # Initializes model weights according to common distributions
@@ -60,14 +60,14 @@ def weight_init(m):
 
 
 # Copies parameters from one model to another, with optional EMA
-def soft_update_params(net, target_net, tau):
+def param_copy(net, target_net, tau):
     for param, target_param in zip(net.parameters(), target_net.parameters()):
         target_param.data.copy_(tau * param.data +
                                 (1 - tau) * target_param.data)
 
 
 # Compute the output shape of a CNN layer
-def conv_output_shape(in_height, in_width, kernel_size=1, stride=1, padding=0, dilation=1):
+def cnn_layer_output_shape(in_height, in_width, kernel_size=1, stride=1, padding=0, dilation=1):
     if type(kernel_size) is not tuple:
         kernel_size = (kernel_size, kernel_size)
     if type(stride) is not tuple:
@@ -82,10 +82,10 @@ def conv_output_shape(in_height, in_width, kernel_size=1, stride=1, padding=0, d
 # Compute the output shape of a whole CNN
 def cnn_output_shape(height, width, block):
     if isinstance(block, (nn.Conv2d, nn.AvgPool2d)):
-        height, width = conv_output_shape(height, width,
-                                          kernel_size=block.kernel_size,
-                                          stride=block.stride,
-                                          padding=block.padding)
+        height, width = cnn_layer_output_shape(height, width,
+                                               kernel_size=block.kernel_size,
+                                               stride=block.stride,
+                                               padding=block.padding)
     elif hasattr(block, 'output_shape'):
         height, width = block.output_shape(height, width)
     elif hasattr(block, 'modules'):
@@ -176,12 +176,16 @@ class act_mode:
     def __enter__(self):
         self.start_modes = []
         for model in self.models:
-            self.start_modes.append(model.training)
-            model.eval()
+            if model is None:
+                self.start_modes.append(None)
+            else:
+                self.start_modes.append(model.training)
+                model.eval()
 
     def __exit__(self, *args):
         for model, mode in zip(self.models, self.start_modes):
-            model.train(mode)
+            if model is not None:
+                model.train(mode)
         return False
 
 
