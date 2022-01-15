@@ -5,6 +5,7 @@
 import math
 import random
 import re
+import warnings
 from pathlib import Path
 
 import numpy as np
@@ -41,6 +42,8 @@ def load(path, module):
         del to_load['state_dict']
         for key in to_load:
             setattr(module, key, to_load[key])
+    else:
+        warnings.warn(f'Load path {path} does not exist')
 
 
 # Initializes model weights according to common distributions
