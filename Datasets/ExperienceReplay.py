@@ -32,8 +32,6 @@ class ExperienceReplay:
             self.path = Path(path + '_' + str(datetime.datetime.now()))
             self.path.mkdir(exist_ok=True, parents=True)
 
-        self.ready = len(self) >= num_workers
-
         if not save:
             # Delete replay on terminate
             atexit.register(lambda p: (shutil.rmtree(p), print('Deleting replay')), self.path)
@@ -148,7 +146,6 @@ class ExperienceReplay:
 
         self.episode = {spec['name']: [] for spec in self.specs}
         self.episode_len = 0
-        self.ready = num_episodes >= self.experiences.num_workers
 
     def __len__(self):
         return len(list(self.path.glob('*.npz')))
