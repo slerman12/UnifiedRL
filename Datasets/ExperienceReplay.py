@@ -2,10 +2,10 @@
 #
 # This source code is licensed under the MIT license found in the
 # MIT_LICENSE file in the root directory of this source tree.
-import atexit
 import random
 import glob
 import shutil
+import atexit
 from pathlib import Path
 import datetime
 import io
@@ -35,7 +35,7 @@ class ExperienceReplay:
 
         if not save:
             # Delete replay on terminate
-            atexit.register(lambda p, _: shutil.rmtree(p), self.path, print('Deleting replay'))
+            atexit.register(lambda p: (shutil.rmtree(p), print('Deleting replay')), self.path)
 
         # Data specs
 
