@@ -25,7 +25,7 @@ class ExperienceReplay:
         exists = glob.glob(path + '*/')
 
         if load or offline:
-            assert len(exists) > 0, 'No existing replay found.'
+            assert len(exists) > 0, 'No existing replay buffer found.'
             self.path = Path(sorted(exists)[-1])
             self.num_episodes = len(list(self.path.glob('*.npz')))
         else:
@@ -35,7 +35,7 @@ class ExperienceReplay:
 
         if not save:
             # Delete replay on terminate
-            atexit.register(lambda p: (shutil.rmtree(p), print('Deleting replay')), self.path)
+            atexit.register(lambda p: (shutil.rmtree(p), print('Deleting replay buffer')), self.path)
 
         # Data specs
 
