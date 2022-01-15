@@ -43,10 +43,9 @@ class Environment:
 
         self.episode_done = False
 
-        if self.offline:
-            if agent.training:
-                agent.step += 1
-                agent.episode += 1
+        if self.offline and agent.training:
+            agent.step += 1
+            agent.episode += 1
             return None, None, None
 
         step = 0
