@@ -91,9 +91,11 @@ def main(args):
 
         if training and args.save_per_steps and agent.step % args.save_per_steps == 0 or (converged and args.save):
             Utils.save(args.save_path, agent, step=agent.step, episode=agent.episode)
+            print(agent.step)
 
         if args.load_per_steps and agent.step % args.load_per_steps == 0:
             Utils.load(args.save_path, agent)
+            print(agent.step)
 
 
 if __name__ == '__main__':

@@ -204,7 +204,7 @@ python Run.py update_per_steps=0 replay.save=true load_per_steps=1
 ```
 
 ```
-python Run.py offline=true save_per_steps=1
+python Run.py offline=true save_per_steps=2
 ```
 
 in concurrent processes.
