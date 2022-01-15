@@ -29,6 +29,7 @@ def set_seeds(seed):
 def save(path, module, **attributes):
     path = path.replace('Agents.', '')
     Path('/'.join(path.split('/')[:-1])).mkdir(exist_ok=True, parents=True)
+    # attributes.update({key: torch.tensor(attributes[key]) for key in attributes if isinstance(attributes[key], int)})
     attributes.update({'state_dict': module.state_dict()})
     torch.save(attributes, path)
 

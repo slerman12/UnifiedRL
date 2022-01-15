@@ -209,7 +209,7 @@ python Run.py offline=true save_per_steps=2
 
 in concurrent processes.
 
-Since both use the same experiment name, they will save and load from the same agent and replay, thereby emulating distributed training.
+Since both use the same experiment name, they will save and load from the same agent and replay, thereby emulating distributed training. **Highly experimental!**
 
 # :bar_chart: Agents & Performances
 
