@@ -25,7 +25,7 @@ class ExperienceReplay:
         if load or offline:
             assert len(exists) > 0
             self.path = Path(sorted(exists)[-1])
-            self.num_episodes = len(glob.glob(self.path))
+            self.num_episodes = len(list(self.path.glob('*.npz')))
         else:
             self.path = Path(path + '_' + str(datetime.datetime.now()))
             self.path.mkdir(exist_ok=True, parents=True)
@@ -41,7 +41,7 @@ class ExperienceReplay:
                       {'name': 'discount', 'shape': (1,), 'dtype': 'float32'},
                       {'name': 'step', 'shape': (1,), 'dtype': 'float32'},)
 
-        # Episode storage
+        # Episode traces
 
         self.episode = {spec['name']: [] for spec in self.specs}
         self.episode_len = 0
