@@ -2,8 +2,8 @@
 #
 # This source code is licensed under the MIT license found in the
 # MIT_LICENSE file in the root directory of this source tree.
-import glob
 import random
+import glob
 from pathlib import Path
 import datetime
 import io
@@ -23,7 +23,7 @@ class ExperienceReplay:
         exists = glob.glob(path + '*/')
 
         if load or offline:
-            assert len(exists) > 0
+            assert len(exists) > 0, 'No existing replay found.'
             self.path = Path(sorted(exists)[-1])
             self.num_episodes = len(list(self.path.glob('*.npz')))
         else:
