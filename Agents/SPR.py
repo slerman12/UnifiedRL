@@ -29,7 +29,7 @@ class SPRAgent(torch.nn.Module):
                  ):
         super().__init__()
 
-        self.discrete = discrete  # Continuous supported
+        self.discrete = discrete  # Continuous supported!
         self.device = device
         self.log = log
         self.birthday = time.time()

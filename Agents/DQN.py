@@ -27,7 +27,7 @@ class DQNAgent(torch.nn.Module):
                  num_actors=5, num_actions=2):  # DQN (for non-discrete support)
         super().__init__()
 
-        self.discrete = discrete  # Continuous supported
+        self.discrete = discrete  # Continuous supported!
         self.device = device
         self.log = log
         self.birthday = time.time()
