@@ -141,6 +141,9 @@ class ExperienceReplay:
         self.episode = {spec['name']: [] for spec in self.specs}
         self.episode_len = 0
 
+    def __len__(self):
+        return self.num_episodes
+
 
 # How to initialize each worker
 def worker_init_fn(worker_id):

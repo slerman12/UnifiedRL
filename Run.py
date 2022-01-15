@@ -79,7 +79,7 @@ def main(args):
                 replay.add(store=True)  # Only store full episodes
 
         converged = agent.step >= args.train_steps
-        training = agent.step > args.seed_steps
+        training = agent.step > args.seed_steps and len(replay) >= args.num_workers
 
         if args.load_per_steps and agent.step % args.load_per_steps == 0:
             Utils.load(args.save_path, agent)
