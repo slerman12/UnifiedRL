@@ -81,9 +81,6 @@ def main(args):
         converged = agent.step >= args.train_steps
         training = agent.step > args.seed_steps and len(replay) >= args.num_workers
 
-        if args.load_per_steps and agent.step % args.load_per_steps == 0:
-            Utils.load(args.save_path, agent)
-
         # Train agent
         if training and args.update_per_steps and agent.step % args.update_per_steps == 0 or converged:
 
@@ -94,6 +91,9 @@ def main(args):
 
         if training and args.save_per_steps and agent.step % args.save_per_steps == 0 or (converged and args.save):
             Utils.save(args.save_path, agent, step=agent.step, episode=agent.episode)
+
+        if args.load_per_steps and agent.step % args.load_per_steps == 0:
+            Utils.load(args.save_path, agent)
 
 
 if __name__ == '__main__':
