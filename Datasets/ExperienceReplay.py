@@ -2,8 +2,10 @@
 #
 # This source code is licensed under the MIT license found in the
 # MIT_LICENSE file in the root directory of this source tree.
+import atexit
 import random
 import glob
+import shutil
 from pathlib import Path
 import datetime
 import io
@@ -30,6 +32,10 @@ class ExperienceReplay:
             self.path = Path(path + '_' + str(datetime.datetime.now()))
             self.path.mkdir(exist_ok=True, parents=True)
             self.num_episodes = 0
+
+        if not save:
+            # Delete replay on terminate
+            atexit.register(lambda p: shutil.rmtree(p), self.path)
 
         # Data specs
 
