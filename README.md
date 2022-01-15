@@ -233,4 +233,4 @@ In addition to RL, supports classification and generative modeling, with little 
 
 <hr class="solid">
 
-[MIT License Included.](MIT_LICENSE)
+[MIT license Included.](MIT_LICENSE)

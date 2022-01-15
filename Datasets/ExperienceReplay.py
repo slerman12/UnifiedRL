@@ -1,4 +1,4 @@
-# Copyright (c) Sam Lerman. All Rights Reserved.
+# Copyright (c) AGI.__init__. All Rights Reserved.
 #
 # This source code is licensed under the MIT license found in the
 # MIT_LICENSE file in the root directory of this source tree.
@@ -134,7 +134,6 @@ class ExperienceReplay:
 
         timestamp = datetime.datetime.now().strftime('%Y%m%dT%H%M%S')
         num_episodes = len(self)
-        print(timestamp, datetime.datetime.now().strftime('%Y%m%dT%H%M%S'))
         episode_name = f'{timestamp}_{num_episodes}_{self.episode_len}.npz'
 
         # Save episode
