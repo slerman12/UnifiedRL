@@ -35,7 +35,7 @@ class ExperienceReplay:
 
         if not save:
             # Delete replay on terminate
-            atexit.register(lambda p: shutil.rmtree(p), self.path)
+            atexit.register(lambda p, _: shutil.rmtree(p), self.path, print('Deleting replay'))
 
         # Data specs
 
