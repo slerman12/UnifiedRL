@@ -48,7 +48,7 @@ def load(path, module):
             else:
                 warnings.warn(f'Load path {path} does not exist.')
             fetch = False
-        except RuntimeError:
+        except:
             warnings.warn(f'Load conflict')
             pass
 
