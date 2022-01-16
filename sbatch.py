@@ -13,16 +13,16 @@ agents = [
     'SPR',
     'DQN',
     'DrQV2',
-    'DQNDPG',
+    # 'DQNDPG',
     # 'DynoSOAR',
     # 'Ascend', 'AC2'
           ]
 seeds = [1, 2]
-experiment = 'Experiment1'
+experiment = 'Exp'
 
-common_sweeps = {'atari': [f'task=atari/{task.lower()} Agent=Agents.{agent}Agent train_steps=200000 seed={seed} experiment={experiment}' for task in atari_tasks for agent in agents for seed in seeds],
-                 'dmc': [f'task=dmc/{task.lower()} Agent=Agents.{agent}Agent train_steps=200000 seed={seed} experiment={experiment}' for task in easy + medium for agent in agents for seed in seeds],
-                 'classify': [f'task=classify/{task.lower()} Agent=Agents.{agent}Agent train_steps=200000 RL=false seed={seed} experiment={experiment}' for task in ['mnist', 'cifar10'] for agent in agents for seed in seeds]}
+common_sweeps = {'atari': [f'task=atari/{task.lower()} Agent=Agents.{agent}Agent train_steps=500000 seed={seed} experiment={experiment}' for task in atari_tasks for agent in agents for seed in seeds],
+                 'dmc': [f'task=dmc/{task.lower()} Agent=Agents.{agent}Agent train_steps=500000 seed={seed} experiment={experiment}' for task in easy + medium + hard for agent in agents for seed in seeds],
+                 'classify': [f'task=classify/{task.lower()} Agent=Agents.{agent}Agent train_steps=500000 RL=false seed={seed} experiment={experiment}' for task in ['mnist', 'cifar10'] for agent in agents for seed in seeds]}
 common_sweeps.update({'all': sum(common_sweeps.values(), [])})
 
 # Arguments
