@@ -49,7 +49,7 @@ def load(path, module):
                 warnings.warn(f'Load path {path} does not exist.')
             fetch = False
         except:
-            warnings.warn(f'Load conflict')
+            warnings.warn(f'Load conflict')  # For distributed training
             pass
 
 
