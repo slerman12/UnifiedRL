@@ -25,7 +25,7 @@ class ExperienceReplay:
         exists = glob.glob(path + '*/')
 
         if load or offline:
-            assert len(exists) > 0, 'No existing replay buffer found.'
+            assert len(exists) > 0, f'No existing replay buffer found in path: {path}'
             self.path = Path(sorted(exists)[-1])
             save = offline or save
         else:
