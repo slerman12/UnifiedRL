@@ -10,15 +10,15 @@ import subprocess
 from Hyperparams.task.atari.generate_atari import atari_tasks
 from Hyperparams.task.dmc.generate_dmc import easy, medium, hard
 agents = [
-    'SPR',
-    'DQN',
+    # 'SPR',
+    # 'DQN',
     'DrQV2',
     # 'DQNDPG',
     # 'DynoSOAR',
     # 'Ascend', 'AC2'
           ]
 seeds = [1, 2]
-experiment = 'Exp'
+experiment = 'One-Hot'
 
 common_sweeps = {'atari': [f'task=atari/{task.lower()} Agent=Agents.{agent}Agent train_steps=500000 seed={seed} experiment={experiment}' for task in atari_tasks for agent in agents for seed in seeds],
                  'dmc': [f'task=dmc/{task.lower()} Agent=Agents.{agent}Agent train_steps=500000 seed={seed} experiment={experiment}' for task in easy + medium + hard for agent in agents for seed in seeds],
