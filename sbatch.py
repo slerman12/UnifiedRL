@@ -18,7 +18,7 @@ agents = [
     # 'Ascend', 'AC2'
           ]
 seeds = [1]
-experiment = 'Random'
+experiment = 'Random 100 Episodes'
 
 common_params = f'train_steps=0 evaluate_episodes=100 experiment={experiment}'
 
