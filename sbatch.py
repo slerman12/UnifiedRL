@@ -12,10 +12,11 @@ from Hyperparams.task.dmc.generate_dmc import easy, medium, hard
 agents = [
     # 'SPR',
     # 'DQN',
-    'DrQV2',
+    # 'DrQV2',
     # 'DQNDPG',
     # 'DynoSOAR',
     # 'Ascend', 'AC2'
+    'Random'
           ]
 seeds = [1]
 experiment = 'Random 100 Episodes'

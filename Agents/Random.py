@@ -16,7 +16,7 @@ from Blocks.Critics import EnsembleQCritic
 from Losses import QLearning, PolicyLearning
 
 
-class DrQV2Agent(torch.nn.Module):
+class RandomAgent(torch.nn.Module):
     """Data-Regularized Q-Network V2 (https://arxiv.org/abs/2107.09645)
     Generalized to Discrete"""
     def __init__(self,
@@ -60,7 +60,7 @@ class DrQV2Agent(torch.nn.Module):
             action = Pi.sample() if self.training \
                 else Pi.mean
 
-            if self.training:
+            if self.training or True:
                 self.step += 1
 
                 # Explore phase
