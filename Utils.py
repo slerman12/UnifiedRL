@@ -16,7 +16,7 @@ import torch.nn.functional as F
 from torch.distributions import Normal
 
 
-# Sets all Torch and Numpy random seeds
+# Sets all Pytorch and Numpy random seeds
 def set_seeds(seed):
     torch.manual_seed(seed)
     if torch.cuda.is_available():
@@ -67,7 +67,7 @@ def weight_init(m):
 
 
 # Copies parameters from one model to another, with optional EMA
-def param_copy(net, target_net, tau):
+def param_copy(net, target_net, tau=1):
     for param, target_param in zip(net.parameters(), target_net.parameters()):
         target_param.data.copy_(tau * param.data +
                                 (1 - tau) * target_param.data)

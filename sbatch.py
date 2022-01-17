@@ -17,12 +17,14 @@ agents = [
     # 'DynoSOAR',
     # 'Ascend', 'AC2'
           ]
-seeds = [1, 2]
-experiment = 'One-Hot'
+seeds = [1]
+experiment = 'Random'
 
-common_sweeps = {'atari': [f'task=atari/{task.lower()} Agent=Agents.{agent}Agent train_steps=500000 seed={seed} experiment={experiment}' for task in atari_tasks for agent in agents for seed in seeds],
-                 'dmc': [f'task=dmc/{task.lower()} Agent=Agents.{agent}Agent train_steps=500000 seed={seed} experiment={experiment}' for task in easy + medium + hard for agent in agents for seed in seeds],
-                 'classify': [f'task=classify/{task.lower()} Agent=Agents.{agent}Agent train_steps=500000 RL=false seed={seed} experiment={experiment}' for task in ['mnist', 'cifar10'] for agent in agents for seed in seeds]}
+common_params = f'train_steps=0 evaluate_episodes=100 experiment={experiment}'
+
+common_sweeps = {'atari': [f'task=atari/{task.lower()} Agent=Agents.{agent}Agent seed={seed} {common_params}' for task in atari_tasks for agent in agents for seed in seeds],
+                 'dmc': [f'task=dmc/{task.lower()} Agent=Agents.{agent}Agent seed={seed} {common_params}' for task in easy + medium + hard for agent in agents for seed in seeds],
+                 'classify': [f'task=classify/{task.lower()} Agent=Agents.{agent}Agent RL=false seed={seed} {common_params}' for task in ['mnist', 'cifar10'] for agent in agents for seed in seeds]}
 common_sweeps.update({'all': sum(common_sweeps.values(), [])})
 
 # Arguments
