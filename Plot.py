@@ -152,7 +152,6 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
         title = ' '.join([task_name[0].upper() + task_name[1:] for task_name in task.split('_')])
 
         suite = title.split('(')[1].split(')')[0]
-        print(suite)
 
         # Aggregate tabular data over all seeds/runs
         for agent in task_data.Agent.unique():
@@ -231,19 +230,19 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
 
     # Tabular data
     f = open(path / (plot_name + 'Tabular.json'), "w")
-    json.dump({'Mean': tabular_mean,
-               'Median': tabular_median,
-               'Normalized Mean': tabular_normalized_mean,
-               'Normalized Median': tabular_normalized_median,
-               # 'Mean Normalized-Mean': {suite: np.mean([val for val in tabular_normalized_mean[suite].values()])
-               #                          for suite in tabular_normalized_mean},
-               # 'Mean Normalized-Median': {suite: np.mean([val for val in tabular_normalized_median[suite].values()])
-               #                            for suite in tabular_normalized_median},
-               # 'Median Normalized-Mean': {suite: np.median([val for val in tabular_normalized_mean[suite].values()])
-               #                            for suite in tabular_normalized_mean},
-               # 'Median Normalized-Median': {suite: np.median([val for val in tabular_normalized_median[suite].values()])
-               #                              for suite in tabular_normalized_median}
-               }, f)
+    tabular_data = {'Mean': tabular_mean,
+                    'Median': tabular_median,
+                    'Normalized Mean': tabular_normalized_mean,
+                    'Normalized Median': tabular_normalized_median}
+    for agg_name, agg in zip(['Mean', 'Median'], [np.mean, np.median]):
+        for name, tabular in zip(['Mean', 'Median'], [tabular_normalized_mean, tabular_normalized_median]):
+            tabular_data.update({f'{agg_name} Normalized-{name}': {
+                {agent: {suite: agg(
+                    [val for val in tabular[agent][suite].values()])}
+                    for suite in tabular[agent]}
+                for agent in tabular}
+            })
+    json.dump(tabular_data, f)
     f.close()
 
 
