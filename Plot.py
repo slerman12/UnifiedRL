@@ -2,6 +2,7 @@
 #
 # This source code is licensed under the MIT license found in the
 # MIT_LICENSE file in the root directory of this source tree.
+import json
 import sys
 import warnings
 from typing import MutableSequence
@@ -55,6 +56,7 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
     # max_csv_list = []  # Unused
     found_suite_tasks = set()
     found_suites = set()
+    min_steps = steps
 
     # Data recollection/parsing
     for csv_name in csv_names:
@@ -93,6 +95,9 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
         csv['Task'] = found_suite_task
         csv['Seed'] = seed
 
+        # Min number of steps
+        min_steps = min(min_steps, csv['step'].max())
+
         # Rolling max per run (as in CURL, SUNRISE) This was critiqued heavily in https://arxiv.org/pdf/2108.13264.pdf
         # max_csv = csv.copy()
         # max_csv['reward'] = max_csv[['reward', 'step']].rolling(length, min_periods=1, on='step').max()['reward']
@@ -109,6 +114,11 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
     df = pd.concat(csv_list, ignore_index=True)
     # max_df = pd.concat(max_csv_list, ignore_index=True)  # Unused
     found_suite_tasks = np.sort(list(found_suite_tasks))
+
+    tabular_mean = {}
+    tabular_median = {}
+    tabular_normalized_mean = {}
+    tabular_normalized_median = {}
 
     # PLOTTING (tasks)
 
@@ -140,6 +150,22 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
 
         # Format title
         title = ' '.join([task_name[0].upper() + task_name[1:] for task_name in task.split('_')])
+
+        suite = title.split('(')[1].split(')')[0]
+
+        # Aggregate final score over all runs
+        for tabular in [tabular_mean, tabular_median, tabular_normalized_mean, tabular_normalized_median]:
+            if suite not in tabular:
+                tabular[suite] = {}
+        scores = task_data[task_data['Step'] == min_steps]
+        for t in low:
+            if t.lower() in task.lower():
+                tabular_mean[suite][t] = scores.mean()
+                tabular_median[suite][t] = scores.median()
+                normalized = (scores - low[t]) / (high[t] - low[t])
+                tabular_normalized_mean[suite][t] = normalized.mean()
+                tabular_normalized_median[suite][t] = normalized.median()
+                continue
 
         sns.lineplot(x='Step', y='Reward', data=task_data, ci='sd', hue='Agent', hue_order=hue_order, ax=ax)
         ax.set_title(f'{title}')
@@ -173,13 +199,16 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
         # Human-normalize Atari
         if suite.lower() == 'atari':
             for task in task_data.Task.unique():
-                for game in random:
-                    if game.lower() in task.lower():
+                for t in low:
+                    if t.lower() in task.lower():
                         with warnings.catch_warnings():
                             warnings.simplefilter("ignore", category=SettingWithCopyWarning)
 
-                            task_data.loc[task_data['Task'] == task, 'Reward'] -= random[game]
-                            task_data.loc[task_data['Task'] == task, 'Reward'] /= human[game] - random[game]
+                            task_data.loc[task_data['Task'] == task, 'Reward'] -= low[t]
+                            task_data.loc[task_data['Task'] == task, 'Reward'] /= high[t] - low[t]
+                            continue
+
+        # TODO DrQV2-normalize/random-normalize DMC
 
         ax = axs[col] if num_cols > 1 else axs
         hue_order = np.sort(task_data.Agent.unique())
@@ -198,9 +227,26 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
 
     plt.close()
 
+    # Tabular data
+    f = open(plot_name + 'Tabular.json', "w")
+    json.dump({'Mean': tabular_mean,
+               'Median': tabular_median,
+               'Normalized Mean': tabular_normalized_mean,
+               'Normalized Median': tabular_normalized_median,
+               'Mean Normalized-Mean': {suite: np.mean([val for val in tabular_normalized_mean[suite].values()])
+                                        for suite in tabular_normalized_mean},
+               'Mean Normalized-Median': {suite: np.mean([val for val in tabular_normalized_median[suite].values()])
+                                          for suite in tabular_normalized_median},
+               'Median Normalized-Mean': {suite: np.median([val for val in tabular_normalized_mean[suite].values()])
+                                          for suite in tabular_normalized_mean},
+               'Median Normalized-Median': {suite: np.median([val for val in tabular_normalized_median[suite].values()])
+                                            for suite in tabular_normalized_median}}, f)
+    f.close()
 
-# Atari data
-random = {
+
+# Lows and highs for normalization
+
+atari_random = {
     'Alien': 227.8,
     'Amidar': 5.8,
     'Assault': 222.4,
@@ -228,7 +274,7 @@ random = {
     'Seaquest': 68.4,
     'UpNDown': 533.4
 }
-human = {
+atari_human = {
     'Alien': 7127.7,
     'Amidar': 1719.5,
     'Assault': 742.0,
@@ -256,6 +302,26 @@ human = {
     'Seaquest': 42054.7,
     'UpNDown': 11693.2
 }
+
+dmc_random = {
+    'dmc': 0
+}
+dmc_drqv2 = {
+    'dmc': 1000
+}
+
+classify_low = {'classify': 0}
+classify_high = {'classify': 1}
+
+low = {}
+low.update(atari_random)
+low.update(dmc_random)
+low.update(classify_low)
+
+high = {}
+high.update(atari_human)
+high.update(dmc_drqv2)
+high.update(classify_high)
 
 
 if __name__ == "__main__":
