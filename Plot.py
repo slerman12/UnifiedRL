@@ -154,18 +154,21 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
         suite = title.split('(')[1].split(')')[0]
 
         # Aggregate tabular data over all seeds/runs
-        for tabular in [tabular_mean, tabular_median, tabular_normalized_mean, tabular_normalized_median]:
-            if suite not in tabular:
-                tabular[suite] = {}
-        scores = task_data.loc[task_data['Step'] == min_steps, 'Reward']
-        for t in low:
-            if t.lower() in task.lower():
-                tabular_mean[suite][t] = scores.mean()
-                tabular_median[suite][t] = scores.median()
-                normalized = (scores - low[t]) / (high[t] - low[t])
-                tabular_normalized_mean[suite][t] = normalized.mean()
-                tabular_normalized_median[suite][t] = normalized.median()
-                continue
+        for agent in task_data.Agent.unique():
+            for tabular in [tabular_mean, tabular_median, tabular_normalized_mean, tabular_normalized_median]:
+                if agent not in tabular:
+                    tabular[agent] = {}
+                if suite not in tabular[agent]:
+                    tabular[agent][suite] = {}
+            scores = task_data.loc[task_data['Step'] == min_steps, 'Reward']
+            for t in low:
+                if t.lower() in task.lower():
+                    tabular_mean[agent][suite][t] = scores.mean()
+                    tabular_median[agent][suite][t] = scores.median()
+                    normalized = (scores - low[t]) / (high[t] - low[t])
+                    tabular_normalized_mean[agent][suite][t] = normalized.mean()
+                    tabular_normalized_median[agent][suite][t] = normalized.median()
+                    continue
 
         sns.lineplot(x='Step', y='Reward', data=task_data, ci='sd', hue='Agent', hue_order=hue_order, ax=ax)
         ax.set_title(f'{title}')
