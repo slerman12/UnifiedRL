@@ -152,6 +152,7 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
         title = ' '.join([task_name[0].upper() + task_name[1:] for task_name in task.split('_')])
 
         suite = title.split('(')[1].split(')')[0]
+        print(suite)
 
         # Aggregate tabular data over all seeds/runs
         for agent in task_data.Agent.unique():
@@ -234,14 +235,15 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
                'Median': tabular_median,
                'Normalized Mean': tabular_normalized_mean,
                'Normalized Median': tabular_normalized_median,
-               'Mean Normalized-Mean': {suite: np.mean([val for val in tabular_normalized_mean[suite].values()])
-                                        for suite in tabular_normalized_mean},
-               'Mean Normalized-Median': {suite: np.mean([val for val in tabular_normalized_median[suite].values()])
-                                          for suite in tabular_normalized_median},
-               'Median Normalized-Mean': {suite: np.median([val for val in tabular_normalized_mean[suite].values()])
-                                          for suite in tabular_normalized_mean},
-               'Median Normalized-Median': {suite: np.median([val for val in tabular_normalized_median[suite].values()])
-                                            for suite in tabular_normalized_median}}, f)
+               # 'Mean Normalized-Mean': {suite: np.mean([val for val in tabular_normalized_mean[suite].values()])
+               #                          for suite in tabular_normalized_mean},
+               # 'Mean Normalized-Median': {suite: np.mean([val for val in tabular_normalized_median[suite].values()])
+               #                            for suite in tabular_normalized_median},
+               # 'Median Normalized-Mean': {suite: np.median([val for val in tabular_normalized_mean[suite].values()])
+               #                            for suite in tabular_normalized_mean},
+               # 'Median Normalized-Median': {suite: np.median([val for val in tabular_normalized_median[suite].values()])
+               #                              for suite in tabular_normalized_median}
+               }, f)
     f.close()
 
 
