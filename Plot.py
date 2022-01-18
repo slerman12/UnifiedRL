@@ -244,7 +244,7 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
                         for suite in tabular[agent]}
                     for agent in tabular}
             })
-    json.dump(tabular_data, f)
+    json.dump(tabular_data, f, indent=2)
     f.close()
 
 
