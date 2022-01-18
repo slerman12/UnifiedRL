@@ -229,7 +229,7 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
     plt.close()
 
     # Tabular data
-    f = open(path / (plot_name + f'{min_steps}-Steps_Tabular.json'), "w")
+    f = open(path / (plot_name + f'{int(min_steps)}-Steps_Tabular.json'), "w")
     tabular_data = {'Mean': tabular_mean,
                     'Median': tabular_median,
                     'Normalized Mean': tabular_normalized_mean,
