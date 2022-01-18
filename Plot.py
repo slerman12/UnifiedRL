@@ -160,7 +160,7 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
                     tabular[agent] = {}
                 if suite not in tabular[agent]:
                     tabular[agent][suite] = {}
-            scores = task_data.loc[task_data['Step'] == min_steps, 'Reward']
+            scores = task_data.loc[(task_data['Step'] == min_steps) & (task_data['Agent'] == agent), 'Reward']
             for t in low:
                 if t.lower() in task.lower():
                     tabular_mean[agent][suite][t] = scores.mean()
@@ -240,8 +240,9 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
                 f'{agg_name} Normalized-{name}': {
                     agent: {
                         suite:
-                            agg([val for val in tabular[agent][suite].values()])}
-                    for suite in tabular[agent]} for agent in tabular
+                            agg([val for val in tabular[agent][suite].values()])
+                        for suite in tabular[agent]}
+                    for agent in tabular}
             })
     json.dump(tabular_data, f)
     f.close()
