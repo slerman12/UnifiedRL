@@ -153,11 +153,11 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
 
         suite = title.split('(')[1].split(')')[0]
 
-        # Aggregate final score over all runs
+        # Aggregate tabular data over all seeds/runs
         for tabular in [tabular_mean, tabular_median, tabular_normalized_mean, tabular_normalized_median]:
             if suite not in tabular:
                 tabular[suite] = {}
-        scores = task_data[task_data['Step'] == min_steps]
+        scores = task_data.loc[task_data['Step'] == min_steps, 'Reward']
         for t in low:
             if t.lower() in task.lower():
                 tabular_mean[suite][t] = scores.mean()
@@ -196,19 +196,16 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
         if steps < np.inf:
             task_data = task_data[task_data['Step'] <= steps]
 
-        # Human-normalize Atari
-        if suite.lower() == 'atari':
-            for task in task_data.Task.unique():
-                for t in low:
-                    if t.lower() in task.lower():
-                        with warnings.catch_warnings():
-                            warnings.simplefilter("ignore", category=SettingWithCopyWarning)
+        # High-low-normalize
+        for task in task_data.Task.unique():
+            for t in low:
+                if t.lower() in task.lower():
+                    with warnings.catch_warnings():
+                        warnings.simplefilter("ignore", category=SettingWithCopyWarning)
 
-                            task_data.loc[task_data['Task'] == task, 'Reward'] -= low[t]
-                            task_data.loc[task_data['Task'] == task, 'Reward'] /= high[t] - low[t]
-                            continue
-
-        # TODO DrQV2-normalize/random-normalize DMC
+                        task_data.loc[task_data['Task'] == task, 'Reward'] -= low[t]
+                        task_data.loc[task_data['Task'] == task, 'Reward'] /= high[t] - low[t]
+                        continue
 
         ax = axs[col] if num_cols > 1 else axs
         hue_order = np.sort(task_data.Agent.unique())
@@ -220,7 +217,8 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
             ax.yaxis.set_major_formatter(FuncFormatter('{:.0%}'.format))
             ax.set_ylabel('Human-Normalized Score')
         elif suite.lower() == 'dmc':
-            ax.set_ybound(0, 1000)
+            ax.yaxis.set_major_formatter(FuncFormatter('{:.0%}'.format))
+            ax.set_ylabel('DrQV2-Normalized Score')
 
     plt.tight_layout()
     plt.savefig(path / (plot_name + 'Suites.png'))
@@ -310,18 +308,13 @@ dmc_drqv2 = {
     'dmc': 1000
 }
 
-classify_low = {'classify': 0}
-classify_high = {'classify': 1}
-
 low = {}
 low.update(atari_random)
 low.update(dmc_random)
-low.update(classify_low)
 
 high = {}
 high.update(atari_human)
 high.update(dmc_drqv2)
-high.update(classify_high)
 
 
 if __name__ == "__main__":
