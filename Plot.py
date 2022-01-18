@@ -228,7 +228,7 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
     plt.close()
 
     # Tabular data
-    f = open(plot_name + 'Tabular.json', "w")
+    f = open(path / (plot_name + 'Tabular.json'), "w")
     json.dump({'Mean': tabular_mean,
                'Median': tabular_median,
                'Normalized Mean': tabular_normalized_mean,
