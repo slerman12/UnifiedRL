@@ -76,7 +76,7 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
 
         datums = [experiment, suite.lower(), task, agent]
         for i, spec in enumerate(specs):
-            if spec is not None and datums[i]not in spec:
+            if spec is not None and datums[i] not in spec:
                 include = False
 
         if not include:
@@ -89,14 +89,16 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
         if length == 0:
             continue
 
+        # Min number of steps
+        min_steps = min(min_steps, length)
+
         found_suite_task = task + ' (' + suite + ')'
         csv['Agent'] = agent + ' (' + experiment + ')'
         csv['Suite'] = suite
         csv['Task'] = found_suite_task
         csv['Seed'] = seed
 
-        # Min number of steps
-        min_steps = min(min_steps, csv['step'].max())
+        print(agent, suite, task, seed, length)
 
         # Rolling max per run (as in CURL, SUNRISE) This was critiqued heavily in https://arxiv.org/pdf/2108.13264.pdf
         # max_csv = csv.copy()
