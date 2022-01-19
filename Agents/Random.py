@@ -51,10 +51,10 @@ class RandomAgent(torch.nn.Module):
             action = action.uniform_(-1, 1)
 
             if self.discrete:
-                action = torch.argmax(action, -1)  # Since discrete is using vector representations
+                action = torch.argmax(action, -1)  # Since using vector representations
 
             return action
 
     # "Dream"
     def learn(self, replay):
-        return None
+        return

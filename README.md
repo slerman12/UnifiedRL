@@ -53,11 +53,12 @@ If you use any part of this code, **be sure to cite the above!**
 An acknowledgment to [Denis Yarats](https://github.com/denisyarats), whose excellent [DrQV2 repo](https://github.com/facebookresearch/drqv2) inspired much of this library and its design.
 
 # :open_umbrella: Unified Learning?
+
 Indeed.
 
 All agents support discrete and continuous control, and offline RL.
 
-See example scripts [below](#mag-sample-scripts).
+See example scripts of various configurations [below](#mag-sample-scripts).
 
 # :wrench: Setting Up 
 
@@ -101,6 +102,7 @@ AutoROM --install-dir ./Datasets/Suites/Atari_ROMS
 ale-import-roms ./Datasets/Suites/Atari_ROMS
 ```
 ## 2. DeepMind Control
+
 Download MuJoCo from here: https://mujoco.org/download.
 
 Make a ```.mujoco``` folder in your home directory:
@@ -161,7 +163,7 @@ python Run.py task=atari/breakout offline=true
 
 Assumes a replay [is saved](#saving). 
 
-Implicitly treats ```replay.load=true``` and ```replay.save=true```.
+Implicitly treats ```replay.load=true``` and ```replay.save=true```, and only does rollouts for evaluation.
 
 ### Experiment naming, plotting
 
@@ -187,11 +189,11 @@ An experience replay can be saved or loaded with the ```replay.save=true``` or `
 python Run.py replay.save=true replay.load=true
 ```
 
-Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer``` respectively per a unique experiment and date-time.
+Agents and replays save to ```./Checkpoints``` and ```./Datasets/ReplayBuffer``` respectively per a unique experiment.
 
 Careful, without ```replay.save=true``` a loaded replay will be deleted upon terminate.
 
-In case of multiple saved replays per a unique experiment, the most recent is loaded.
+Replays also save uniquely w.r.t. a date-time. In case of multiple saved replays per a unique experiment, the most recent is loaded.
 
 ### Distributed
 

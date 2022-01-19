@@ -307,20 +307,20 @@ atari_human = {
     'UpNDown': 11693.2
 }
 
-dmc_random = {
+dmc_low = {
     'dmc': 0
 }
-dmc_drqv2 = {
+dmc_high = {
     'dmc': 1000
 }
 
 low = {}
 low.update(atari_random)
-low.update(dmc_random)
+low.update(dmc_low)
 
 high = {}
 high.update(atari_human)
-high.update(dmc_drqv2)
+high.update(dmc_high)
 
 
 if __name__ == "__main__":
