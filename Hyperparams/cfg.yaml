@@ -34,7 +34,6 @@ load_per_steps: 0
 # Logging
 log_video: false
 log_per_episodes: 1
-agent_log: false
 # Plotting
 plot_per_steps: 10000
 # Misc
@@ -71,7 +70,7 @@ agent:
   target_tau: 0.01
   discrete: ${discrete}
   device: ${device}
-  log: ${agent_log}
+  log: false
 
 replay:
   _target_: Datasets.ExperienceReplay.ExperienceReplay

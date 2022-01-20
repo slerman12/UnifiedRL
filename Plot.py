@@ -98,8 +98,6 @@ def plot(path, plot_experiments=None, plot_agents=None, plot_suites=None, plot_t
         csv['Task'] = found_suite_task
         csv['Seed'] = seed
 
-        print(agent, suite, task, seed, length)
-
         # Rolling max per run (as in CURL, SUNRISE) This was critiqued heavily in https://arxiv.org/pdf/2108.13264.pdf
         # max_csv = csv.copy()
         # max_csv['reward'] = max_csv[['reward', 'step']].rolling(length, min_periods=1, on='step').max()['reward']

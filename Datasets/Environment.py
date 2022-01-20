@@ -41,12 +41,12 @@ class Environment:
 
         exp = self.exp
 
-        self.episode_done = False
-
         if self.offline and agent.training:
             agent.step += 1
             agent.episode += 1
             return None, None, None
+
+        self.episode_done = False
 
         step = 0
         while not self.episode_done and step < steps:
@@ -86,7 +86,7 @@ class Environment:
                 'step': agent.step,
                 'frame': agent.step * self.action_repeat,
                 'episode': agent.episode,
-                'accuracy' if self.suite.lower() == 'classify' else 'reward': self.episode_reward,
+                'reward': self.episode_reward,
                 'fps': frames / (sundown - self.daybreak)}
 
         if self.episode_done:
