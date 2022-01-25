@@ -196,9 +196,9 @@ class act_mode:
         return False
 
 
-# Converts data to Torch Tensors and moves them to the specified device as floats
-def to_torch(xs, device):
-    return tuple(torch.as_tensor(x, device=device).float() for x in xs)
+# Converts data to Pytorch Tensors and moves them to the specified device as floats
+def to_torch(tensors, device):
+    return tuple(torch.as_tensor(x, device=device).float() for x in tensors)
 
 
 # Backward pass on a loss; clear the grads of models; step their optimizers
@@ -232,7 +232,7 @@ def schedule(schedule, step):
 
 # Min-max normalizes to [0, 1]
 # "Re-normalization", as in SPR (https://arxiv.org/abs/2007.05929), or at least in their code
-class ReNormalize(nn.Module):
+class ShiftNorm(nn.Module):
     def __init__(self, start_dim=-1):
         super().__init__()
         self.start_dim = start_dim

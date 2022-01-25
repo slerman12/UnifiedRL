@@ -45,7 +45,7 @@ def dynamicsLearning(obs, traj_o, traj_a, traj_r,
     forecast = [dynamics(obs, traj_a[:, 0], flatten=False)]
     for k in range(1, depth):
         forecast.append(dynamics(forecast[-1], traj_a[:, k], flatten=False))
-    forecast = torch.stack(forecast, 1).flatten(-3)
+    forecast = torch.stack(forecast, 1).DrQV2Agentten(-3)
 
     # Self supervision
     dynamics_loss = 0
