@@ -17,8 +17,8 @@ from Blocks.Architectures.MLP import MLP
 
 
 class TruncatedGaussianActor(nn.Module):
-    def __init__(self, repr_shape, feature_dim, hidden_dim, action_dim, l2_norm=False,
-                 discrete=False, stddev_schedule=None,  stddev_clip=None,
+    def __init__(self, repr_shape, trunk_dim, hidden_dim, action_dim, l2_norm=False,
+                 discrete=False, stddev_schedule=None, stddev_clip=None,
                  target_tau=None, optim_lr=None):
         super().__init__()
 
@@ -30,12 +30,12 @@ class TruncatedGaussianActor(nn.Module):
 
         repr_dim = math.prod(repr_shape)
 
-        self.trunk = nn.Sequential(nn.Linear(repr_dim, feature_dim),
-                                   nn.LayerNorm(feature_dim), nn.Tanh())
+        self.trunk = nn.Sequential(nn.Linear(repr_dim, trunk_dim),
+                                   nn.LayerNorm(trunk_dim), nn.Tanh())
 
         out_dim = action_dim * 2 if stddev_schedule is None else action_dim
 
-        self.Pi_head = MLP(feature_dim, out_dim, hidden_dim, 2, l2_norm=l2_norm)
+        self.Pi_head = MLP(trunk_dim, out_dim, hidden_dim, 2, l2_norm=l2_norm)
 
         self.init(optim_lr, target_tau)
 
@@ -68,6 +68,7 @@ class TruncatedGaussianActor(nn.Module):
                                      Utils.schedule(self.stddev_schedule, step))
 
         self.mean_tanh = mean_tanh  # Pre-Tanh mean can be regularized (https://openreview.net/pdf?id=9xhgmsNVHu)
+
         mean = torch.tanh(self.mean_tanh)
 
         Pi = TruncatedNormal(mean, stddev, low=-1, high=1, stddev_clip=self.stddev_clip)
@@ -75,7 +76,7 @@ class TruncatedGaussianActor(nn.Module):
         return Pi
 
 
-class CategoricalCriticActor(nn.Module):
+class CategoricalCriticActor(nn.Module):  # a.k.a. "Creator"
     def __init__(self, entropy_sched=1):
         super().__init__()
 
@@ -88,40 +89,40 @@ class CategoricalCriticActor(nn.Module):
         u = exploit_temp * q + (1 - exploit_temp) * Q.stddev
         u_logits = u - u.max(dim=-1, keepdim=True)[0]
         entropy_temp = Utils.schedule(self.entropy_sched, step)
-        Q_Pi = Categorical(logits=u_logits / entropy_temp + actions_log_prob)
+        Psi = Categorical(logits=u_logits / entropy_temp + actions_log_prob)
 
         best_eps, best_ind = torch.max(u, -1)
         best_action = Utils.gather_indices(Q.action, best_ind.unsqueeze(-1), 1).squeeze(1)
 
-        sample = Q_Pi.sample
+        sample = Psi.sample
 
         def action_sampler(sample_shape=torch.Size()):
             i = sample(sample_shape)
             return Utils.gather_indices(Q.action, i.unsqueeze(-1), 1).squeeze(1)
 
-        Q_Pi.__dict__.update({'best': best_action,
-                              'best_u': best_eps,
-                              'sample_ind': sample,
-                              'sample': action_sampler,
-                              'Q': Q,
-                              'q': q,
-                              'actions': Q.action,
-                              'u': u})
-        return Q_Pi
+        Psi.__dict__.update({'best': best_action,
+                             'best_u': best_eps,
+                             'sample_ind': sample,
+                             'sample': action_sampler,
+                             'Q': Q,
+                             'q': q,
+                             'actions': Q.action,
+                             'u': u})
+        return Psi
 
 
-class GaussianActorEnsemble(TruncatedGaussianActor):
+class EnsembleGaussianActor(TruncatedGaussianActor):
     """"Ensembles actions output by Gaussian actors,
     returns all actor outputs unaltered, simply grouped"""
-    def __init__(self, repr_shape, feature_dim, hidden_dim, action_dim, ensemble_size=2,
-                 l2_norm=False, discrete=False, stddev_schedule=None,  stddev_clip=None,
+    def __init__(self, repr_shape, trunk_dim, hidden_dim, action_dim, ensemble_size=2,
+                 l2_norm=False, discrete=False, stddev_schedule=None, stddev_clip=None,
                  target_tau=None, optim_lr=None):
-        super().__init__(repr_shape, feature_dim, hidden_dim, action_dim, l2_norm,
+        super().__init__(repr_shape, trunk_dim, hidden_dim, action_dim, l2_norm,
                          discrete, stddev_schedule, stddev_clip)
 
         out_dim = action_dim * 2 if stddev_schedule is None else action_dim
 
-        self.Pi_head = Utils.Ensemble([MLP(feature_dim, out_dim, hidden_dim, 2, l2_norm=l2_norm)
+        self.Pi_head = Utils.Ensemble([MLP(trunk_dim, out_dim, hidden_dim, 2, l2_norm=l2_norm)
                                        for _ in range(ensemble_size)])
 
         self.init(optim_lr, target_tau)

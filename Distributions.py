@@ -11,18 +11,22 @@ import Utils
 
 # A Gaussian Normal distribution with its standard deviation clipped
 class TruncatedNormal(pyd.Normal):
-    def __init__(self, loc, scale, low=None, high=None, eps=1e-6, stddev_clip=None, one_hot=False):
+    def __init__(self, loc, scale, low=None, high=None, eps=1e-6, stddev_clip=None):
         super().__init__(loc, scale)
         self.low, self.high = low, high
         self.eps = eps
         self.stddev_clip = stddev_clip
-        self.one_hot = one_hot
 
     def log_prob(self, value):
-        try:
+        shape = self.loc.shape
+
+        if value.shape[-len(shape):] == shape:
             return super().log_prob(value)
-        except ValueError:
-            return super().log_prob(value.transpose(0, 1)).transpose(0, 1)  # To account for batch_first=True
+        else:
+            diff = len(value.shape) - len(shape)
+            value = value.transpose(0, diff)
+            assert value.shape[-len(shape):] == shape
+            return super().log_prob(value).transpose(0, diff)  # To account for batch_first=True
 
     # No grad, defaults to no clip, batch dim first
     def sample(self, sample_shape=torch.Size(), to_clip=False, batch_first=True):

@@ -10,7 +10,7 @@ import Utils
 
 from Blocks.Augmentations import IntensityAug, RandomShiftsAug
 from Blocks.Encoders import CNNEncoder
-from Blocks.Actors import GaussianActorEnsemble, CategoricalCriticActor
+from Blocks.Actors import EnsembleGaussianActor, CategoricalCriticActor
 from Blocks.Critics import EnsembleQCritic
 
 from Losses import QLearning, PolicyLearning
@@ -20,7 +20,7 @@ class DQNAgent(torch.nn.Module):
     """Deep Q Network
     Generalized to continuous action spaces"""
     def __init__(self,
-                 obs_shape, action_shape, feature_dim, hidden_dim,  # Architecture
+                 obs_shape, action_shape, trunk_dim, hidden_dim,  # Architecture
                  lr, target_tau,  # Optimization
                  explore_steps, stddev_schedule, stddev_clip,  # Exploration
                  discrete, device, log,  # On-boarding
@@ -41,12 +41,12 @@ class DQNAgent(torch.nn.Module):
 
         # Continuous actions creator
         self.creator = None if self.discrete \
-            else GaussianActorEnsemble(self.encoder.repr_shape, feature_dim, hidden_dim,
+            else EnsembleGaussianActor(self.encoder.repr_shape, trunk_dim, hidden_dim,
                                        self.action_dim, ensemble_size=num_actors,
                                        stddev_schedule=stddev_schedule, stddev_clip=stddev_clip,
                                        optim_lr=lr)
 
-        self.critic = EnsembleQCritic(self.encoder.repr_shape, feature_dim, hidden_dim, self.action_dim,
+        self.critic = EnsembleQCritic(self.encoder.repr_shape, trunk_dim, hidden_dim, self.action_dim,
                                       discrete=discrete,
                                       optim_lr=lr, target_tau=target_tau)
 
